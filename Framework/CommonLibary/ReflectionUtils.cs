@@ -9,7 +9,7 @@ namespace CommonLibary
     /// <summary>
     /// 反射常用操作
     /// </summary>
-    public class ReflectionUtils
+    public static class ReflectionUtils
     {
     }
 }

@@ -9,7 +9,7 @@ namespace CommonLibary
     /// <summary>
     /// 文件读取常用操作
     /// </summary>
-    public class IOUtils
+    public static class IOUtils
     {
     }
 }

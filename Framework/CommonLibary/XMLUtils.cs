@@ -9,7 +9,7 @@ namespace CommonLibary
     /// <summary>
     /// XML文件常用操作
     /// </summary>
-    public class XMLUtils
+    public static class XMLUtils
     {
     }
 }
