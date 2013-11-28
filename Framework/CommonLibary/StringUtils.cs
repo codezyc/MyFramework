@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
 namespace CommonLibary
 {
@@ -17,7 +19,7 @@ namespace CommonLibary
         /// <param name="s"></param>
         /// <param name="chars"></param>
         /// <returns></returns>
-        public static string[] SplitByMutipleChar(string s,char[] chars)
+        public static string[] SplitByMutipleChar(string s, char[] chars)
         {
             return s.Split(chars, StringSplitOptions.RemoveEmptyEntries);
         }
@@ -25,23 +27,31 @@ namespace CommonLibary
         /// <summary>
         /// 获取字符数组
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="str">字符串</param>
         /// <returns></returns>
-        public static char[] GetCharArray(string s)
+        public static char[] GetCharArray(string str)
         {
-            return s.ToCharArray();
+            if (string.IsNullOrEmpty(str))
+            {
+                return str.ToCharArray();
+            }
+            return new char[] { };
         }
 
         /// <summary>
         /// 字符串逆序
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="str">字符串</param>
         /// <returns></returns>
-        public static string ReverseString(string s)
+        public static string ReverseString(string str)
         {
-            char[] c = s.ToCharArray();
-            Array.Reverse(c);
-            return c.ToString();
+            if (!string.IsNullOrEmpty(str))
+            {
+                char[] c = str.ToCharArray();
+                Array.Reverse(c);
+                return c.ToString();
+            }
+            return string.Empty;
         }
 
         /// <summary>
@@ -50,9 +60,174 @@ namespace CommonLibary
         /// <param name="format"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static string FormatWith(this string format,params object[] args)
+        public static string FormatWith(this string format, params object[] args)
         {
             return string.Format(format, args);
+        }
+
+        /// <summary>
+        /// 去除特殊字符
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="specialchar">特殊字符</param>
+        /// <returns></returns>
+        public static string RemoveSpecialChar(string str, string specialchar)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                foreach (char c in specialchar)
+                {
+                    if (str.Contains(c))
+                    {
+                        str = str.Replace(c.ToString(), "");
+                    }
+                }
+                return str;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 正则匹配字符串出现的次数
+        /// </summary>
+        /// <param name="reg">正则表达式</param>
+        /// <param name="str">被匹配的字符串</param>
+        /// <returns></returns>
+        public static int GetMatchCount(Regex reg, string str)
+        {
+            MatchCollection mc = reg.Matches(str);
+            return mc.Count;
+        }
+
+        /// <summary>
+        /// 正则匹配字符串出现的次数
+        /// </summary>
+        /// <param name="reg">正则表达式</param>
+        /// <param name="str">被匹配的字符串</param>
+        /// <param name="startat">开始匹配的位置</param>
+        /// <returns></returns>
+        public static int GetMatchCount(Regex reg, string str, int startat)
+        {
+            MatchCollection mc = reg.Matches(str, startat);
+            return mc.Count;
+        }
+
+        /// <summary>
+        /// 字符串数组转成字符串
+        /// </summary>
+        /// <param name="str">字符串数组</param>
+        /// <param name="splitstr">分隔符</param>
+        /// <returns></returns>
+        public static string ArrayToString(string[] str, string splitstr)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (string s in str)
+            {
+                sb.Append(s);
+                sb.Append(splitstr);
+            }
+            string result = sb.ToString();
+            return result.Substring(0, result.Length - 1);
+        }
+
+        /// <summary>
+        /// 获取字符串指定位置左侧的所有字符
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="position">位置</param>
+        /// <returns></returns>
+        public static string GetLeftString(string str, int position)
+        {
+            if (position <= 0)
+                return string.Empty;
+            else
+            {
+                if (string.IsNullOrEmpty(str))
+                    return string.Empty;
+                return str.Substring(0, position);
+            }
+        }
+
+        /// <summary>
+        /// 获取字符串指定位置右侧的所有字符
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="position">位置</param>
+        /// <returns></returns>
+        public static string GetRightString(string str, int position)
+        {
+            if (position <= 0)
+                return string.Empty;
+            else
+            {
+                if (string.IsNullOrEmpty(str))
+                    return string.Empty;
+                return str.Substring(position, str.Length);
+            }
+        }
+
+        /// <summary>
+        /// 半角转全角
+        /// </summary>
+        /// <param name="str">半角字符串</param>
+        /// <returns>全角字符串</returns>
+        public static string ToSBC(string str)
+        {
+            char[] chars = str.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] == 32)
+                {
+                    chars[i] = (char)12288;
+                    continue;
+                }
+                if (chars[i] < 127)
+                {
+                    chars[i] = (char)(chars[i] + 65248);
+                }
+            }
+            return new string(chars);
+        }
+
+        /// <summary>
+        /// 全角转半角
+        /// </summary>
+        /// <param name="str">全角字符串</param>
+        /// <returns>半角字符串</returns>
+        public static string ToDBC(string str)
+        {
+            char[] chars = str.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] == 12288)
+                {
+                    chars[i] = (char)32;
+                    continue;
+                }
+                if (chars[i] > 65280 && chars[i] < 65375)
+                    chars[i] = (char)(chars[i] - 65248);
+            }
+            return new string(chars);
+        }
+
+        /// <summary>
+        /// 字符串转成繁体中文
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <returns>繁体中文字符串</returns>
+        public static string ToTraditionalChinese(string str)
+        {
+            return Strings.StrConv(str, VbStrConv.TraditionalChinese);
+        }
+
+        /// <summary>
+        /// 字符串转成简体中文
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <returns>简体中文字符串</returns>
+        public static string ToSimplifiedChinese(string str)
+        {
+            return Strings.StrConv(str, VbStrConv.SimplifiedChinese);
         }
     }
 }
