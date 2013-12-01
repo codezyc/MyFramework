@@ -15,9 +15,9 @@ namespace CommonLibary
         /// <summary>
         /// Base64位编码字符串
         /// </summary>
-        public static string Base64Encode(string str,string charset)
+        public static string Base64Encode(string str, string charset)
         {
-            byte[] bytes=Encoding.GetEncoding(charset).GetBytes(str);
+            byte[] bytes = Encoding.GetEncoding(charset).GetBytes(str);
             return Convert.ToBase64String(bytes);
         }
 
@@ -26,9 +26,9 @@ namespace CommonLibary
         /// </summary>
         /// <param name="encodetext"></param>
         /// <returns></returns>
-        public static string Base64Decode(string encodetext,string charset)
+        public static string Base64Decode(string encodetext, string charset)
         {
-            byte[] bytes= Convert.FromBase64String(encodetext);
+            byte[] bytes = Convert.FromBase64String(encodetext);
             return Encoding.GetEncoding(charset).GetString(bytes);
         }
     }

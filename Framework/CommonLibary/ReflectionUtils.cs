@@ -1,15 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CommonLibary
 {
     /// <summary>
-    /// 反射常用操作
+    /// C#反射常用操作
     /// </summary>
     public static class ReflectionUtils
     {
+        /// <summary>
+        /// 反射创建对象实例
+        /// </summary>
+        /// <typeparam name="T">对象的类型</typeparam>
+        /// <param name="dllname">程序集名称</param>
+        /// <param name="nameSpace">命名空间</param>
+        /// <param name="classname">类名</param>
+        /// <returns></returns>
+        public static T CreateInstance<T>(string dllname, string nameSpace, string classname) where T : class
+        {
+            Assembly assembly = Assembly.Load(dllname);
+            return (T)assembly.CreateInstance(nameSpace + "." + classname);
+        }
+
+        /// <summary>
+        /// 反射创建对象实例
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="dllpath">dll文件路径</param>
+        /// <param name="fullname">命名空间.类名</param>
+        /// <returns></returns>
+        public static T CreatInstance<T>(string dllpath, string fullname) where T : class
+        {
+            if (File.Exists(dllpath))
+            {
+                Assembly assembly = Assembly.LoadFile(dllpath);
+                return (T)assembly.CreateInstance(fullname);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 反射动态调用方法
+        /// </summary>
+        /// <param name="dllpath">dll文件路径</param>
+        /// <param name="fullname">命名空间.类名</param>
+        /// <param name="methodname">方法名称</param>
+        /// <param name="values">所需参数数组</param>
+        /// <returns>返回动态调用方法的返回值</returns>
+        public static object DynamicCallMethod(string dllpath, string fullname, string methodname, object[] values)
+        {
+            Assembly assembly = Assembly.LoadFile(dllpath);
+            object obj = assembly.CreateInstance(fullname);
+            MethodInfo methodinfo = obj.GetType().GetMethod(methodname);
+            return methodinfo.Invoke(obj, values);
+        }
+
+        /// <summary>
+        /// 反射调用泛型方法
+        /// </summary>
+        /// <param name="dllpath">dll文件路径</param>
+        /// <param name="fullname">命名空间.类名</param>
+        /// <param name="methodname">调用的方法名称</param>
+        /// <param name="t">泛型数组</param>
+        /// <param name="values">所需参数数组</param>
+        /// <returns>返回动态调用方法的返回值</returns>
+        public static object DynamicCallGenericMethod(string dllpath, string fullname, string methodname, Type[] t, object[] values)
+        {
+            Assembly assembly = Assembly.LoadFile(dllpath);
+            object obj = assembly.CreateInstance(fullname);
+            MethodInfo methodinfo = obj.GetType().GetMethod(methodname);
+            MethodInfo genericmethodinfo = methodinfo.MakeGenericMethod(t);
+            return genericmethodinfo.Invoke(obj, values);
+        }
     }
 }

@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.Devices;
 using System.Windows.Forms;
 using System.Management;
+using System.Security.Cryptography;
 
 namespace CommonLibary
 {
@@ -19,7 +16,6 @@ namespace CommonLibary
     /// </summary>
     public static class IOUtils
     {
-
         #region 文件相关操作
         /// <summary>
         /// 读取文件中的所有字符
@@ -72,14 +68,12 @@ namespace CommonLibary
             {
                 using (var sw = new StreamWriter(path))
                 {
-
                     File.Create(path, buffersize, FileOptions.RandomAccess);
                     Task t = sw.WriteAsync(str);
                     if (t.IsCompleted && t.IsFaulted == false)
                     {
                         return true;
                     }
-
                     return false;
                 }
             }
@@ -128,9 +122,13 @@ namespace CommonLibary
         /// <returns></returns>
         public static string GetFileVersion(string path)
         {
-            string filename = Path.GetFileName(path);
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(filename);
-            return fvi.FileVersion;
+            if (File.Exists(path))
+            {
+                string filename = Path.GetFileName(path);
+                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(filename);
+                return fvi.FileVersion;
+            }
+            return string.Empty;
         }
 
         /// <summary>
@@ -276,19 +274,41 @@ namespace CommonLibary
         /// <param name="filepath">解压后文件路径</param>
         public static void UnZipFile(string zipfilepath, string filepath)
         {
-            FileInfo fileinfo = new FileInfo(zipfilepath);
-            using (FileStream fs = fileinfo.OpenRead())
+            if (File.Exists(zipfilepath))
             {
-                if (File.Exists(zipfilepath))
-                    DeleteFile(zipfilepath);
-                using (FileStream decompress = File.Create(filepath))
+                FileInfo fileinfo = new FileInfo(zipfilepath);
+                using (FileStream fs = fileinfo.OpenRead())
                 {
-                    using (GZipStream gzip = new GZipStream(fs, CompressionMode.Decompress))
+                    if (File.Exists(zipfilepath))
+                        DeleteFile(zipfilepath);
+                    using (FileStream decompress = File.Create(filepath))
                     {
-                        gzip.CopyTo(decompress);
+                        using (GZipStream gzip = new GZipStream(fs, CompressionMode.Decompress))
+                        {
+                            gzip.CopyTo(decompress);
+                        }
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 计算文件的MD5值
+        /// </summary>
+        /// <param name="path">文件路径</param>
+        /// <returns></returns>
+        public static string GetFileMD5(string path)
+        {
+            if (File.Exists(path))
+            {
+                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                byte[] bytes = md5.ComputeHash(fs);
+                string str = BitConverter.ToString(bytes);
+                str.Replace("-", "");
+                return str;
+            }
+            return string.Empty;
         }
 
         #endregion

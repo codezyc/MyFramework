@@ -162,7 +162,7 @@ namespace CommonLibary
         }
 
         /// <summary>
-        /// 发序列化XML转成DataTable对象
+        /// 反序列化XML转成DataTable对象
         /// </summary>
         /// <param name="filepath"></param>
         /// <returns></returns>

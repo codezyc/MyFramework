@@ -229,5 +229,26 @@ namespace CommonLibary
         {
             return Strings.StrConv(str, VbStrConv.SimplifiedChinese);
         }
+
+        /// <summary>
+        /// 比较两个字符串大小
+        /// </summary>
+        /// <param name="s1">字符串变量</param>
+        /// <param name="s2">字符串变量</param>
+        /// <param name="IsIgnoreCase">是否忽略大小写</param>
+        /// <returns></returns>
+        public static int CompareString(string s1, string s2, bool IsIgnoreCase)
+        {
+            if (string.IsNullOrEmpty(s1) && string.IsNullOrEmpty(s2))
+            {
+                if (string.Compare(s1, s2, IsIgnoreCase) == 0)
+                    return 0;
+                else if (string.Compare(s1, s2, IsIgnoreCase) > 0)
+                    return 1;
+                else if (string.Compare(s1, s2, IsIgnoreCase) < 0)
+                    return -1;
+            }
+            return -2;
+        }
     }
 }
