@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.Devices;
 using System.Windows.Forms;
 using System.Management;
 using System.Security.Cryptography;
+using Microsoft.Win32;
+using System.Runtime.InteropServices;
 
 namespace CommonLibary
 {
@@ -488,6 +491,133 @@ namespace CommonLibary
                 return dataobj.GetData(DataFormats.Text).ToString();
             }
             return string.Empty;
+        }
+
+        #endregion
+
+        #region 注册表相关
+        /// <summary>
+        /// 获取注册表值
+        /// </summary>
+        /// <param name="dirname"></param>
+        /// <param name="keyname"></param>
+        /// <returns></returns>
+        public static string GetRegistData(string dirname, string keyname)
+        {
+            RegistryKey hkml = Registry.LocalMachine;
+            RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
+            if (software != null)
+            {
+                RegistryKey aimdir = software.OpenSubKey(dirname, true);
+                if (aimdir != null)
+                {
+                    return aimdir.GetValue(keyname).ToString();
+                }
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 向注册表中写数据
+        /// </summary>
+        /// <param name="dirname">目录名称</param>
+        /// <param name="keyname">键</param>
+        /// <param name="value">值</param>
+        public static void WriteRegist(string dirname, string keyname, object value)
+        {
+            RegistryKey hkml = Registry.LocalMachine;
+            RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
+            if (software != null)
+            {
+                RegistryKey aimdir = software.CreateSubKey(dirname);
+                aimdir.SetValue(keyname, value);
+            }
+        }
+
+        /// <summary>
+        /// 删除注册表中的值
+        /// </summary>
+        /// <param name="dirname"></param>
+        /// <param name="keyname"></param>
+        public static void DeleteRegistData(string dirname, string keyname)
+        {
+            RegistryKey hkml = Registry.LocalMachine;
+            RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
+            if (software != null)
+            {
+                RegistryKey aimdir = software.OpenSubKey(dirname, true);
+                if (aimdir != null)
+                {
+                    string[] aimnames = aimdir.GetSubKeyNames();
+                    foreach (string key in aimnames)
+                    {
+                        if (key.Equals(keyname))
+                            aimdir.DeleteSubKeyTree(key);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 判断某个注册表项是否存在
+        /// </summary>
+        /// <param name="dirname">目录名称</param>
+        /// <param name="keyname">键的名称</param>
+        /// <returns></returns>
+        public static bool IsKeyExist(string dirname, string keyname)
+        {
+            RegistryKey hkml = Registry.LocalMachine;
+            RegistryKey software = hkml.OpenSubKey("SOFTWARE", true);
+            if (software != null)
+            {
+                RegistryKey aimdir = software.OpenSubKey(dirname, true);
+                if (aimdir != null)
+                {
+                    string[] aimnames = aimdir.GetSubKeyNames();
+                    foreach (var key in aimnames)
+                    {
+                        if (key.Equals(keyname))
+                            return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region INI文件读写
+
+        [DllImport("kernel32")]
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section, string key, string defVal, StringBuilder retVal, int size, string filePath);
+
+        /// <summary>
+        /// 向INI文件中写入内容
+        /// </summary>
+        /// <param name="section">段落名</param>
+        /// <param name="key">键</param>
+        /// <param name="value">值</param>
+        /// <param name="filepath">INI文件路径</param>
+        public static void IniWrite(string section, string key, string value, string filepath)
+        {
+            WritePrivateProfileString(section, key, value, filepath);
+        }
+
+        /// <summary>
+        /// 读取Ini文件中的键值
+        /// </summary>
+        /// <param name="section">段落名</param>
+        /// <param name="key">键</param>
+        /// <param name="filepath">INI文件路径</param>
+        /// <returns></returns>
+        public static string IniRead(string section, string key, string filepath)
+        {
+            var sb = new StringBuilder(255);
+            int result = GetPrivateProfileString(section, key, "", sb, 255, filepath);
+            return result.ToString();
         }
 
         #endregion

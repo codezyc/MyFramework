@@ -27,7 +27,7 @@ namespace CommonLibary
         /// <param name="xmlnamespace">元素属性命名空间</param>
         public static void AddNewSection(string filepath, string name, string value, string xmlnamespace)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(filepath);
             var root = doc.DocumentElement;
             XmlNode node = doc.CreateNode("element", name, xmlnamespace);
@@ -43,7 +43,7 @@ namespace CommonLibary
         /// <param name="xpath"></param>
         public static void DeleteSection(string filepath, string xpath)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(filepath);
             var root = doc.DocumentElement;
             var node = root.SelectSingleNode(xpath);
@@ -63,7 +63,7 @@ namespace CommonLibary
         /// <returns></returns>
         public static string GetElementAttribute(string filepath, string xpath, string attributename)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(filepath);
             var root = doc.DocumentElement;
             var element = (XmlElement)root.SelectSingleNode(xpath);
@@ -78,10 +78,10 @@ namespace CommonLibary
         /// <param name="attributename">元素属性名</param>
         public static void DeleteElementAttribute(string filepath, string xpath, string attributename)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(filepath);
             var root = doc.DocumentElement;
-            XmlElement element = (XmlElement)doc.SelectSingleNode(xpath);
+            var element = (XmlElement)doc.SelectSingleNode(xpath);
             if (element != null)
             {
                 element.RemoveAttribute(attributename);
@@ -98,10 +98,10 @@ namespace CommonLibary
         /// <param name="attributevalue"></param>
         public static void ModifiedElementAttribute(string filepath, string xpath, string attributename, string attributevalue)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(filepath);
             var root = doc.DocumentElement;
-            XmlElement element = (XmlElement)doc.SelectSingleNode(xpath);
+            var element = (XmlElement)doc.SelectSingleNode(xpath);
             if (element != null)
             {
                 element.SetAttribute(attributename, attributevalue);
@@ -117,7 +117,7 @@ namespace CommonLibary
         /// <returns></returns>
         public static IEnumerable GetNodeList(string filepath, string xpath)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(filepath);
             var root = doc.DocumentElement;
             XmlNodeList nodelist = doc.SelectNodes(xpath);
@@ -131,7 +131,7 @@ namespace CommonLibary
         /// <returns></returns>
         public static XmlElement GetRootElement(string filepath)
         {
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load(filepath);
             return doc.DocumentElement;
         }
@@ -154,8 +154,8 @@ namespace CommonLibary
         /// <param name="path">xml文件路径</param>
         public static void SerializeDataTableToXML(DataTable dt, string path)
         {
-            XmlSerializer xmlser = new XmlSerializer(typeof(DataTable));
-            using (StreamWriter sw = new StreamWriter(path))
+            var xmlser = new XmlSerializer(typeof(DataTable));
+            using (var sw = new StreamWriter(path))
             {
                 xmlser.Serialize(sw, dt);
             }
@@ -169,12 +169,44 @@ namespace CommonLibary
         public static DataTable DeSerializeXMLToDataTable(string filepath)
         {
             DataTable dt;
-            XmlSerializer xmlser = new XmlSerializer(typeof(DataTable));
-            using (FileStream fs = File.OpenRead(filepath))
+            var xmlser = new XmlSerializer(typeof(DataTable));
+            using (var fs = File.OpenRead(filepath))
             {
                 dt = (DataTable)xmlser.Deserialize(fs);
             }
             return dt;
+        }
+
+        /// <summary>
+        /// 反序列化XML文件成实体对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t">对象的类型</param>
+        /// <param name="xmlpath">xml文件内容</param>
+        /// <returns></returns>
+        public static T DeSerializeXmlFileToT<T>(Type t, string xmlpath)
+        {
+            using (var fs = new FileStream(xmlpath, FileMode.Open))
+            {
+                var xmlser = new XmlSerializer(t);
+                return (T)xmlser.Deserialize(fs);
+            }
+        }
+
+        /// <summary>
+        /// 反序列化XML内容成实体对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t">对象的类型</param>
+        /// <param name="xmlcontent">xml内容</param>
+        /// <returns>泛型对象</returns>
+        public static T DeSerializeXmlContentToT<T>(Type t, string xmlcontent)
+        {
+            using (var sr = new StringReader(xmlcontent))
+            {
+                var xmlser = new XmlSerializer(t);
+                return (T)xmlser.Deserialize(sr);
+            }
         }
     }
 }

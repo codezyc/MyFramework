@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +14,7 @@ namespace CommonLibary
     /// </summary>
     public static class ReflectionUtils
     {
+
         /// <summary>
         /// 反射创建对象实例
         /// </summary>
@@ -76,6 +78,39 @@ namespace CommonLibary
             MethodInfo methodinfo = obj.GetType().GetMethod(methodname);
             MethodInfo genericmethodinfo = methodinfo.MakeGenericMethod(t);
             return genericmethodinfo.Invoke(obj, values);
+        }
+
+        /// <summary>
+        /// DataTable转成对象列表
+        /// </summary>
+        /// <typeparam name="T">泛型类型</typeparam>
+        /// <param name="dt">DataTable对象</param>
+        /// <returns>可遍历的对象列表</returns>
+        public static IEnumerable<T> DataTableToModelList<T>(DataTable dt)
+        {
+            IList<T> modellist = new List<T>();
+            Type type = typeof(T);
+            string tempname = "";
+            foreach (DataRow dr in dt.Rows)
+            {
+                T t = Activator.CreateInstance<T>();
+                PropertyInfo[] properties = t.GetType().GetProperties();
+                foreach (var propertyInfo in properties)
+                {
+                    tempname = propertyInfo.Name;
+                    if (dt.Columns.Contains(tempname))
+                    {
+                        if (!propertyInfo.CanWrite) continue;
+                        object value = dr[tempname];
+                        if (value != DBNull.Value)
+                        {
+                            propertyInfo.SetValue(t, value, null);
+                        }
+                    }
+                    modellist.Add(t);
+                }
+            }
+            return modellist;
         }
     }
 }

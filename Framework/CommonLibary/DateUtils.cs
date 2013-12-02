@@ -16,13 +16,10 @@ namespace CommonLibary
         /// </summary>
         /// <param name="d1"></param>
         /// <param name="d2"></param>
-        public static void GetDateDiff(DateTime d1, DateTime d2)
+        public static TimeSpan GetDateDiff(DateTime d1, DateTime d2)
         {
             TimeSpan ts = d2.Subtract(d1);
-            Console.WriteLine(ts.TotalDays);
-            Console.WriteLine(ts.TotalHours);
-            Console.WriteLine(ts.TotalMinutes);
-            Console.WriteLine(ts.TotalSeconds);
+            return ts;
         }
 
         /// <summary>
@@ -57,7 +54,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="d1"></param>
         /// <param name="d2"></param>
-        /// <returns>返回结果：-1：d1 < d2；0：d1 = d2；1：d1 > d2</returns>
+        /// <returns>返回结果：-1:d1< d2, 0:d1 = d2;1:d1 > d2</returns>
         public static int CompareTwoDate(DateTime d1, DateTime d2)
         {
             return d1.CompareTo(d2);
