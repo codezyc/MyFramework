@@ -250,5 +250,27 @@ namespace CommonLibary
             }
             return -2;
         }
+
+        /// <summary>
+        /// 字符串转成Guid
+        /// </summary>
+        /// <param name="str">字符串变量</param>
+        /// <returns>Guid</returns>
+        public static Guid StringToGuid(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return Guid.Empty;
+            return new Guid(str);
+        }
+
+        /// <summary>
+        /// 去掉Guid中间的横杠
+        /// </summary>
+        /// <param name="guid">guid变量</param>
+        /// <returns>字符串</returns>
+        public static string RemoveGuidDash(Guid guid)  
+        {
+            return guid.ToString("N");
+        }
     }
 }
