@@ -43,13 +43,6 @@ namespace CommonLibary.NoSql
             return null;
         }
 
-
-        public MongoCollection QueryAll(string dbname, string tablename, IMongoQuery query)
-        {
-            return null;
-        }
-
-
         /// <summary>
         /// 实现IDisposable接口
         /// </summary>

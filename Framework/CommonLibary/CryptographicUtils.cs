@@ -282,5 +282,68 @@ namespace CommonLibary
         }
 
         #endregion
+
+        #region RSA加密解密相关
+        /// <summary>
+        /// RSA加密字符串
+        /// </summary>
+        /// <param name="publickey">公钥</param>
+        /// <param name="content">待加密字符串</param>
+        /// <param name="contentcharset">字符串编码方式</param>
+        /// <returns></returns>
+        public static string RSAEncrypt(string publickey, string content, string contentcharset)
+        {
+            if (!string.IsNullOrEmpty(publickey) && !string.IsNullOrEmpty(content))
+            {
+                using (var rsa = new RSACryptoServiceProvider())
+                {
+                    rsa.FromXmlString(publickey);
+                    byte[] encrybytes = rsa.Encrypt(Encoding.GetEncoding(contentcharset).GetBytes(content), false);
+                    return Convert.ToBase64String(encrybytes);
+                }
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// RSA解密字符串
+        /// </summary>
+        /// <param name="privatekey">私钥</param>
+        /// <param name="content">待解密内容</param>
+        /// <param name="contentcharset">字符串编码方式</param>
+        /// <returns></returns>
+        public static string RSADecrypt(string privatekey, string content, string contentcharset)
+        {
+            if (!string.IsNullOrEmpty(privatekey) && !string.IsNullOrEmpty(content))
+            {
+                using (var rsa = new RSACryptoServiceProvider())
+                {
+                    rsa.FromXmlString(privatekey);
+                    byte[] decrybytes = rsa.Decrypt(Convert.FromBase64String(content), false);
+                    return Encoding.GetEncoding(contentcharset).GetString(decrybytes);
+                }
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 创建RSA密钥
+        /// </summary>
+        /// <param name="keysize">密钥模块的大小</param>
+        /// <param name="includePrivateParameters">true：包含公钥和私钥;false：只包含公钥</param>
+        /// <returns></returns>
+        public static string CreateKey(int keysize, bool includePrivateParameters)
+        {
+            if (keysize > 0)
+            {
+                using (var rsa = new RSACryptoServiceProvider(keysize))
+                {
+                    return rsa.ToXmlString(includePrivateParameters);
+                }
+            }
+            return string.Empty;
+        }
+
+        #endregion
     }
 }
