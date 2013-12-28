@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Base64Utils.cs" />
     <Compile Include="Cache\CacheUtils.cs" />
+    <Compile Include="Cache\Interface\ICache.cs" />
     <Compile Include="Cache\MemCacheUtils.cs" />
     <Compile Include="ConfigFileUtils.cs" />
     <Compile Include="CryptographicUtils.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="EnumUtils.cs" />
     <Compile Include="IOUtils.cs" />
     <Compile Include="JSONUtils.cs" />
+    <Compile Include="Log\Interface\ILog.cs" />
     <Compile Include="NoSql\MongoDbUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionUtils.cs" />
@@ -93,6 +95,7 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -77,9 +77,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CustomeActionResult\AddChallengeOnUnauthorizedResult.cs" />
+    <Compile Include="CustomeActionResult\AuthenticationFailureResult.cs" />
     <Compile Include="CustomeAttribute\BasicAuthenticationAttribute.cs" />
     <Compile Include="CustomeAttribute\CorsAttribute.cs" />
+    <Compile Include="CustomeAttribute\CustomControllerConfigAttribute.cs" />
     <Compile Include="CustomeHttpMessageHandler\CorsMessageHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\CustomCertificateMessageHandler.cs" />
+    <Compile Include="CustomeParameterBinding\CustomModelBinderWithPropertyName.cs" />
+    <Compile Include="CustomeParameterBinding\FromUriOrBodyParameterBinding.cs" />
+    <Compile Include="CustomeParameterBinding\MultipleParameterFromBodyParameterBinding.cs" />
+    <Compile Include="CustomeParameterBinding\PrincipalParameterBinding.cs" />
+    <Compile Include="Extension\HttpAuthenticationChallengeContextExtensions.cs" />
     <Compile Include="Extension\HttpRequestMessageExtensions.cs" />
     <Compile Include="FormatterExtend\JsonpMediaTypeFormatter.cs" />
     <Compile Include="Global.asax.cs">

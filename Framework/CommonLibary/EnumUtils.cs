@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CommonLibary
 {
     /// <summary>
-    /// 枚举的常用操作
+    /// 枚举的常用操作类
     /// </summary>
     public static class EnumUtils
     {
