@@ -86,10 +86,17 @@
     <Compile Include="CustomeAttribute\CustomControllerConfigAttribute.cs" />
     <Compile Include="CustomeHttpMessageHandler\CorsMessageHandler.cs" />
     <Compile Include="CustomeHttpMessageHandler\CustomCertificateMessageHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\EncodingHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\LoggingHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\MethodOverrideHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\NotAcceptableMessageHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\RequireHttpsHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\ThrottlingHandler.cs" />
     <Compile Include="CustomeParameterBinding\CustomModelBinderWithPropertyName.cs" />
     <Compile Include="CustomeParameterBinding\FromUriOrBodyParameterBinding.cs" />
     <Compile Include="CustomeParameterBinding\MultipleParameterFromBodyParameterBinding.cs" />
     <Compile Include="CustomeParameterBinding\PrincipalParameterBinding.cs" />
+    <Compile Include="Extension\CompressedContent.cs" />
     <Compile Include="Extension\HttpAuthenticationChallengeContextExtensions.cs" />
     <Compile Include="Extension\HttpRequestMessageExtensions.cs" />
     <Compile Include="FormatterExtend\JsonpMediaTypeFormatter.cs" />
@@ -111,6 +118,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{9fbdc1c3-ecb5-4470-a76d-8050b3339b7b}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Service\Service.csproj">
+      <Project>{86a34ee0-69bd-404b-9c61-055f47990a5d}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
