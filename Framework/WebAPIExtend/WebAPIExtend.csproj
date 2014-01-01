@@ -96,6 +96,7 @@
     <Compile Include="CustomeParameterBinding\FromUriOrBodyParameterBinding.cs" />
     <Compile Include="CustomeParameterBinding\MultipleParameterFromBodyParameterBinding.cs" />
     <Compile Include="CustomeParameterBinding\PrincipalParameterBinding.cs" />
+    <Compile Include="CustomeParameterBinding\SimplePostVariableParameterBinding.cs" />
     <Compile Include="Extension\CompressedContent.cs" />
     <Compile Include="Extension\HttpAuthenticationChallengeContextExtensions.cs" />
     <Compile Include="Extension\HttpRequestMessageExtensions.cs" />
