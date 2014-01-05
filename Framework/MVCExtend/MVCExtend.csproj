@@ -166,6 +166,7 @@
     <Compile Include="CustomeAttribute\AuthenticationChallengeContextExtensions.cs" />
     <Compile Include="CustomeAttribute\BasicAuthenticationAttribute.cs" />
     <Compile Include="CustomeAttribute\HttpsAttribute.cs" />
+    <Compile Include="CustomeController\CommonController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,6 +52,41 @@ namespace CommonLibary
                 enumlist.Add(i);
             }
             return enumlist;
+        }
+
+        /// <summary>
+        /// 获得枚举值上定义的描述字符串
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string GetDecriptionString(this Enum value)
+        {
+            FieldInfo field = value.GetType().GetField(value.ToString());
+            DescriptionAttribute attribute = (DescriptionAttribute)field.GetCustomAttribute(typeof(DescriptionAttribute), false);
+            if (!string.IsNullOrWhiteSpace(attribute.Description))
+            {
+                return attribute.Description;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 通过枚举值返回此枚举类型的对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="descriptionorvalue"></param>
+        /// <returns></returns>
+        public static object EnumValueOf<T>(this string descriptionorvalue)
+        {
+            Array values = Enum.GetValues(typeof(T));
+            foreach (Enum item in values)
+            {
+                if (item.GetDecriptionString().Equals(descriptionorvalue) || item.ToString().Equals(descriptionorvalue))
+                {
+                    return item;
+                }
+            }
+            return null;
         }
     }
 }
