@@ -236,6 +236,25 @@ namespace CommonLibary
         }
 
         /// <summary>
+        /// 判断文件是否是只读的
+        /// </summary>
+        /// <param name="path">文件的路径</param>
+        /// <returns></returns>
+        public static bool IsReadOnly(string path)
+        {
+            if (File.Exists(path))
+            {
+                FileInfo fileinfo = new FileInfo(path);
+                if (fileinfo.IsReadOnly)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// 删除指定路径的文件或文件夹
         /// </summary>
         /// <param name="path">文件或文件夹路径</param>
