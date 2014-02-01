@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CommonLibary
 {
@@ -11,6 +14,7 @@ namespace CommonLibary
     /// </summary>
     public static class ReflectionUtils
     {
+
         /// <summary>
         /// 反射创建对象实例
         /// </summary>
@@ -107,38 +111,6 @@ namespace CommonLibary
                 }
             }
             return modellist;
-        }
-
-        /// <summary>
-        /// 通过反射创建泛型类的对象
-        /// </summary>
-        /// <param name="t">返回泛型类对象的类型</param>
-        /// <param name="tkey"></param>
-        /// <param name="tvalue"></param>
-        /// <returns></returns>
-        public static object CreateGenericObject(Type t, string tkey, string tvalue)
-        {
-            Type typeargument1 = Type.GetType(tkey);
-            Type typeargument2 = Type.GetType(tvalue);
-            Type genericClass = t;
-            Type construtedClass = genericClass.MakeGenericType(new[] { typeargument1, typeargument2 });
-            object obj = Activator.CreateInstance(construtedClass);
-            return obj;
-        }
-
-        /// <summary>
-        /// 通过反射创建泛型类的对象
-        /// </summary>
-        /// <param name="t">返回泛型类对象的类型</param>
-        /// <param name="tkey"></param>
-        /// <returns></returns>
-        public static object CreateGenericObject(Type t, string tkey)
-        {
-            Type typeargument1 = Type.GetType(tkey);
-            Type genericClass = t;
-            Type construtedClass = genericClass.MakeGenericType(new[] { typeargument1 });
-            object obj = Activator.CreateInstance(construtedClass);
-            return obj;
         }
     }
 }
