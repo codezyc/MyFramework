@@ -1,0 +1,25 @@
+﻿
+namespace CommonLibary.DataProvider
+{
+    /// <summary>
+    /// SQL Server的数据访问类
+    /// </summary>
+    public class SqlProvider
+    {
+        /// <summary>
+        /// 数据库连接字符串
+        /// </summary>
+        public string ConnectionString
+        {
+            set;
+            get;
+        }
+
+        #region 构造方法
+        public SqlProvider(string connectionstring)
+        {
+            this.ConnectionString = connectionstring;
+        }
+        #endregion
+    }
+}

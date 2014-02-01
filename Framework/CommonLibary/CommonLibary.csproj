@@ -86,8 +86,12 @@
     <Compile Include="Cache\MemCacheUtils.cs" />
     <Compile Include="ConfigFileUtils.cs" />
     <Compile Include="CryptographicUtils.cs" />
+    <Compile Include="DataProvider\MySQLProvider.cs" />
+    <Compile Include="DataProvider\OracleProvider.cs" />
+    <Compile Include="DataProvider\SqlProvider.cs" />
     <Compile Include="DateUtils.cs" />
     <Compile Include="EnumUtils.cs" />
+    <Compile Include="EnvironmentUtils.cs" />
     <Compile Include="IOUtils.cs" />
     <Compile Include="JSONUtils.cs" />
     <Compile Include="Log\Interface\ILog.cs" />

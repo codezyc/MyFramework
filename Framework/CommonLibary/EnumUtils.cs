@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -87,6 +88,23 @@ namespace CommonLibary
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// 枚举类型转成DataTable并返回
+        /// </summary>
+        /// <param name="enumType">具体的枚举类型</param>
+        /// <returns></returns>
+        public static DataTable EnumToDataTable(Type enumType)
+        {
+            var dt = new DataTable();
+            dt.Columns.Add("decription", typeof(string));
+            dt.Columns.Add("Id", Enum.GetUnderlyingType(enumType));
+            foreach (string item in Enum.GetNames(enumType))
+            {
+                dt.Rows.Add(item.Replace('_', ' '), Enum.Parse(enumType, item));
+            }
+            return dt;
         }
     }
 }
