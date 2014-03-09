@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Base64UtilsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CallOnceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLibary\CommonLibary.csproj">

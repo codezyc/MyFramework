@@ -72,6 +72,7 @@
     <Compile Include="Cache\CacheUtils.cs" />
     <Compile Include="Cache\Interface\ICache.cs" />
     <Compile Include="Cache\MemCacheUtils.cs" />
+    <Compile Include="CallOnce\CalledOnce.cs" />
     <Compile Include="ConfigFileUtils.cs" />
     <Compile Include="CryptographicUtils.cs" />
     <Compile Include="DataProvider\MySQLProvider.cs" />

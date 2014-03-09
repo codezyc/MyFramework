@@ -92,6 +92,8 @@
     <Compile Include="CustomeHttpMessageHandler\NotAcceptableMessageHandler.cs" />
     <Compile Include="CustomeHttpMessageHandler\RequireHttpsHandler.cs" />
     <Compile Include="CustomeHttpMessageHandler\ThrottlingHandler.cs" />
+    <Compile Include="CustomeHttpMessageHandler\TraceHelperHandler.cs" />
+    <Compile Include="CustomeInterface\PerRequestTraceWriter.cs" />
     <Compile Include="CustomeParameterBinding\CustomModelBinderWithPropertyName.cs" />
     <Compile Include="CustomeParameterBinding\FromUriOrBodyParameterBinding.cs" />
     <Compile Include="CustomeParameterBinding\MultipleParameterFromBodyParameterBinding.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelpExtension\HttpRequestMessageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
