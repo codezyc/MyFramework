@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiLoggingInfo.cs" />
+    <Compile Include="CacheItem.cs" />
     <Compile Include="MailEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
