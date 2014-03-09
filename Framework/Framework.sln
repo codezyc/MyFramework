@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0339A15C-8BCC-4A33-8980-261029B3D0DA}"
 EndProject
@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{57B6FF
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{86A34EE0-69BD-404B-9C61-055F47990A5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC5.1", "MVC5.1\MVC5.1.csproj", "{78210DDC-5689-4B23-9D18-A3D242849269}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{86A34EE0-69BD-404B-9C61-055F47990A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86A34EE0-69BD-404B-9C61-055F47990A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86A34EE0-69BD-404B-9C61-055F47990A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78210DDC-5689-4B23-9D18-A3D242849269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78210DDC-5689-4B23-9D18-A3D242849269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78210DDC-5689-4B23-9D18-A3D242849269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78210DDC-5689-4B23-9D18-A3D242849269}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

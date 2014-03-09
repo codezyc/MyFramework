@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCExtend.CustomeViewEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,6 +18,8 @@ namespace MVCExtend
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //注册自定义视图引擎
+            ViewEngines.Engines.Add(new MyViewEngineProvider());
         }
 
         /// <summary>

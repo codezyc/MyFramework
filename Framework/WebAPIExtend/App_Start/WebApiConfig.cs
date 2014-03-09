@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using WebAPIExtend.CustomeHandler;
 
 namespace WebAPIExtend
 {
@@ -19,6 +22,10 @@ namespace WebAPIExtend
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Services.Add(typeof(IExceptionLogger),new TraceSourceExceptionLogger(new TraceSource("MyTraceSource", SourceLevels.All)));
+
+            config.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
         }
     }
 }
