@@ -98,5 +98,7 @@ namespace CommonLibary
             DateTime d2 = new DateTime(d1.Year + 1, 1, 1);
             return d2.AddDays(-1);
         }
+
+
     }
 }
