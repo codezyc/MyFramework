@@ -95,6 +95,38 @@ namespace CommonLibary
             return d2.AddDays(-1);
         }
 
+        /// <summary>
+        /// DateTime转成时间戳
+        /// </summary>
+        /// <returns></returns>
+        public static double GetTimeStamp()
+        {
+            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return ts.TotalSeconds;
+        }
 
+        /// <summary>
+        /// DateTime转成时间戳
+        /// </summary>
+        /// <param name="dt">要转成时间戳类型的时间</param>
+        /// <returns></returns>
+        public static double GetTimeStamp(DateTime dt)
+        {
+            TimeSpan ts = dt - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return ts.TotalSeconds;
+        }
+
+        /// <summary>
+        /// 时间戳转成DateTime
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <returns></returns>
+        public static DateTime ConvertTimeStampToDateTime(double timestamp)
+        {
+            DateTime time = DateTime.MinValue;
+            DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
+            time = startTime.AddSeconds(timestamp);
+            return time;
+        }
     }
 }
