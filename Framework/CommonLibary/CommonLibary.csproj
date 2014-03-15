@@ -84,6 +84,7 @@
     <Compile Include="DateUtils.cs" />
     <Compile Include="EnumUtils.cs" />
     <Compile Include="EnvironmentUtils.cs" />
+    <Compile Include="IEnumerableExtension.cs" />
     <Compile Include="IOUtils.cs" />
     <Compile Include="JSONUtils.cs" />
     <Compile Include="Log\Interface\ILog.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="ReflectionUtils.cs" />
     <Compile Include="StringUtils.cs" />
     <Compile Include="Web\HttpHelper.cs" />
+    <Compile Include="Web\HttpRequestMessageExt.cs" />
     <Compile Include="Web\MailUtils.cs" />
     <Compile Include="Web\WebServiceHelper.cs" />
     <Compile Include="XMLUtils.cs" />

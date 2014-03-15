@@ -9,7 +9,7 @@ using Microsoft.VisualBasic;
 namespace CommonLibary
 {
     /// <summary>
-    /// 字符串的常用操作
+    /// 字符串常用扩展方法
     /// </summary>
     public static class StringUtils
     {
@@ -19,7 +19,7 @@ namespace CommonLibary
         /// <param name="s"></param>
         /// <param name="chars"></param>
         /// <returns></returns>
-        public static string[] SplitByMutipleChar(string s, char[] chars)
+        public static string[] SplitByMutipleChar(this string str, string s, char[] chars)
         {
             return s.Split(chars, StringSplitOptions.RemoveEmptyEntries);
         }
@@ -29,7 +29,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns></returns>
-        public static char[] GetCharArray(string str)
+        public static char[] GetCharArray(this string s, string str)
         {
             if (string.IsNullOrEmpty(str))
             {
@@ -43,7 +43,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns></returns>
-        public static string ReverseString(string str)
+        public static string ReverseString(this string s, string str)
         {
             if (!string.IsNullOrEmpty(str))
             {
@@ -71,7 +71,7 @@ namespace CommonLibary
         /// <param name="str">字符串</param>
         /// <param name="specialchar">特殊字符</param>
         /// <returns></returns>
-        public static string RemoveSpecialChar(string str, string specialchar)
+        public static string RemoveSpecialChar(this string s, string str, string specialchar)
         {
             if (!string.IsNullOrEmpty(str))
             {
@@ -93,7 +93,7 @@ namespace CommonLibary
         /// <param name="reg">正则表达式</param>
         /// <param name="str">被匹配的字符串</param>
         /// <returns></returns>
-        public static int GetMatchCount(Regex reg, string str)
+        public static int GetMatchCount(this string s, Regex reg, string str)
         {
             MatchCollection mc = reg.Matches(str);
             return mc.Count;
@@ -106,7 +106,7 @@ namespace CommonLibary
         /// <param name="str">被匹配的字符串</param>
         /// <param name="startat">开始匹配的位置</param>
         /// <returns></returns>
-        public static int GetMatchCount(Regex reg, string str, int startat)
+        public static int GetMatchCount(this string s, Regex reg, string str, int startat)
         {
             MatchCollection mc = reg.Matches(str, startat);
             return mc.Count;
@@ -118,10 +118,10 @@ namespace CommonLibary
         /// <param name="str">字符串数组</param>
         /// <param name="splitstr">分隔符</param>
         /// <returns></returns>
-        public static string ArrayToString(string[] str, string splitstr)
+        public static string ArrayToString(this string str, string[] array, string splitstr)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (string s in str)
+            foreach (string s in array)
             {
                 sb.Append(s);
                 sb.Append(splitstr);
@@ -136,7 +136,7 @@ namespace CommonLibary
         /// <param name="str">字符串</param>
         /// <param name="position">位置</param>
         /// <returns></returns>
-        public static string GetLeftString(string str, int position)
+        public static string GetLeftString(this string s, string str, int position)
         {
             if (position <= 0)
                 return string.Empty;
@@ -154,7 +154,7 @@ namespace CommonLibary
         /// <param name="str">字符串</param>
         /// <param name="position">位置</param>
         /// <returns></returns>
-        public static string GetRightString(string str, int position)
+        public static string GetRightString(this string s, string str, int position)
         {
             if (position <= 0)
                 return string.Empty;
@@ -171,7 +171,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">半角字符串</param>
         /// <returns>全角字符串</returns>
-        public static string ToSBC(string str)
+        public static string ToSBC(this string s, string str)
         {
             char[] chars = str.ToCharArray();
             for (int i = 0; i < chars.Length; i++)
@@ -194,7 +194,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">全角字符串</param>
         /// <returns>半角字符串</returns>
-        public static string ToDBC(string str)
+        public static string ToDBC(this string s, string str)
         {
             char[] chars = str.ToCharArray();
             for (int i = 0; i < chars.Length; i++)
@@ -215,7 +215,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns>繁体中文字符串</returns>
-        public static string ToTraditionalChinese(string str)
+        public static string ToTraditionalChinese(this string s, string str)
         {
             return Strings.StrConv(str, VbStrConv.TraditionalChinese);
         }
@@ -237,7 +237,7 @@ namespace CommonLibary
         /// <param name="s2">字符串变量</param>
         /// <param name="IsIgnoreCase">是否忽略大小写</param>
         /// <returns></returns>
-        public static int CompareString(string s1, string s2, bool IsIgnoreCase)
+        public static int CompareString(this string s, string s1, string s2, bool IsIgnoreCase)
         {
             if (string.IsNullOrEmpty(s1) && string.IsNullOrEmpty(s2))
             {
@@ -256,7 +256,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串变量</param>
         /// <returns>Guid</returns>
-        public static Guid StringToGuid(string str)
+        public static Guid StringToGuid(this string s, string str)
         {
             if (string.IsNullOrEmpty(str))
                 return Guid.Empty;
@@ -268,9 +268,39 @@ namespace CommonLibary
         /// </summary>
         /// <param name="guid">guid变量</param>
         /// <returns>字符串</returns>
-        public static string RemoveGuidDash(Guid guid)  
+        public static string RemoveGuidDash(this string s, Guid guid)
         {
             return guid.ToString("N");
+        }
+
+        /// <summary>
+        /// 去掉字符串的前缀
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        public static string TrimPrefix(this string str, string prefix)
+        {
+            if (!String.IsNullOrEmpty(str) && !String.IsNullOrEmpty(prefix) && str.StartsWith(prefix))
+            {
+                return str.Substring(prefix.Length);
+            }
+            return str;
+        }
+
+        /// <summary>
+        /// 去掉字符串的后缀
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="suffix"></param>
+        /// <returns></returns>
+        public static string TrimSuffix(this string str, string suffix)
+        {
+            if (string.IsNullOrWhiteSpace(str) && !string.IsNullOrWhiteSpace(suffix) && str.EndsWith(suffix))
+            {
+                return str.Remove(str.Length - suffix.Length);
+            }
+            return str;
         }
     }
 }

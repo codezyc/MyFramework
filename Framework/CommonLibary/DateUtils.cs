@@ -99,10 +99,10 @@ namespace CommonLibary
         /// DateTime转成时间戳
         /// </summary>
         /// <returns></returns>
-        public static double GetTimeStamp()
+        public static long GetTimeStamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return ts.TotalSeconds;
+            return Convert.ToInt64(ts.TotalSeconds);
         }
 
         /// <summary>
@@ -110,10 +110,10 @@ namespace CommonLibary
         /// </summary>
         /// <param name="dt">要转成时间戳类型的时间</param>
         /// <returns></returns>
-        public static double GetTimeStamp(DateTime dt)
+        public static long GetTimeStamp(DateTime dt)
         {
             TimeSpan ts = dt - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return ts.TotalSeconds;
+            return Convert.ToInt64(ts.TotalSeconds);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="timestamp"></param>
         /// <returns></returns>
-        public static DateTime ConvertTimeStampToDateTime(double timestamp)
+        public static DateTime ConvertTimeStampToDateTime(long timestamp)
         {
             DateTime time = DateTime.MinValue;
             DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
