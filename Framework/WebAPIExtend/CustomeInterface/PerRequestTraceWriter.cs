@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Http.Tracing;
-using WebAPIExtend.HelpExtension;
+using WebAPIExtend.Extension;
 
 namespace WebAPIExtend.CustomeInterface
 {

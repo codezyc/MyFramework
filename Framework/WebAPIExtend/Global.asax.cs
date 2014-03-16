@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using WebAPIExtend.CustomeAttribute;
 using WebAPIExtend.CustomeHttpMessageHandler;
 using WebAPIExtend.FormatterExtend;
 
@@ -19,7 +20,7 @@ namespace WebAPIExtend
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            
+            //GlobalConfiguration.Configuration.Filters.Add(new ElmahErrorAttribute());  //注册Elmah异常过滤器
         }
     }
 }
