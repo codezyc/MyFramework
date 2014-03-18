@@ -302,5 +302,16 @@ namespace CommonLibary
             }
             return str;
         }
+
+        /// <summary>
+        /// 判断字符可以转成数字
+        /// </summary>
+        /// <param name="theValue"></param>
+        /// <returns></returns>
+        public static bool IsNumeric(this string theValue)
+        {
+            long retNum;
+            return long.TryParse(theValue, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+        }
     }
 }

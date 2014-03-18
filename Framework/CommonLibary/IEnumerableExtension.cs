@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CommonLibary
 {
+    /// <summary>
+    /// 部分方法参考
+    /// http://extensionmethod.net/csharp/ienumerable-t
+    /// </summary>
     public static class IEnumerableExtension
     {
         /// <summary>
@@ -112,6 +114,29 @@ namespace CommonLibary
             {
                 yield return item;
             }
+        }
+
+        /// <summary>
+        /// 遍历集合中每一个元素，每一个委托元素都执行一个委托方法
+        /// </summary>
+        /// <typeparam name="T">泛型类</typeparam>
+        /// <param name="enumeration">可遍历的泛型集合</param>
+        /// <param name="action">委托方法</param>
+        public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+        {
+            foreach (T item in enumeration) action(item);
+        }
+
+        /// <summary>
+        /// Allows you to filter an IEnumerable<T>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="filterParam"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> Filter<T>(this IEnumerable<T> list, Func<T, bool> filterParam)
+        {
+            return list.Where(filterParam);
         }
     }
 }
