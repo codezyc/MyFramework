@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 
@@ -14,6 +10,9 @@ namespace CommonLibary.Cache
     /// </summary>
     public static class CacheUtils
     {
+        //生成或创建缓存对象的委托
+        public delegate T CreateCacheValue<T>();
+
         /// <summary>
         /// 向缓存中添加一项
         /// </summary>
@@ -78,6 +77,21 @@ namespace CommonLibary.Cache
             while (ide.MoveNext())
             {
                 RemoveItem(ide.Key.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 向缓存中添加缓存对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="cachevalue"></param>
+        /// <returns></returns>
+        public static void Get<T>(string key, CreateCacheValue<T> cachevalue)
+        {
+            if (HttpContext.Current.Cache.Get(key) == null)
+            {
+                HttpContext.Current.Cache.Insert(key, cachevalue);
             }
         }
     }
