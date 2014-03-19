@@ -176,6 +176,7 @@
     <Compile Include="CustomeOutputProvider\DocumentDatabaseOutputCacheProvider.cs" />
     <Compile Include="CustomeViewEngine\MyCustomView.cs" />
     <Compile Include="CustomeViewEngine\MyViewEngineProvider.cs" />
+    <Compile Include="Extensions\MVCExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

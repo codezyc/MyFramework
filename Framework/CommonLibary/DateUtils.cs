@@ -12,7 +12,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="d1"></param>
         /// <param name="d2"></param>
-        public static TimeSpan GetDateDiff(DateTime d1, DateTime d2)
+        public static TimeSpan GetDateDiff(this DateTime dt, DateTime d1, DateTime d2)
         {
             TimeSpan ts = d2.Subtract(d1);
             return ts;
@@ -22,7 +22,7 @@ namespace CommonLibary
         /// 获得今天是星期几
         /// </summary>
         /// <returns></returns>
-        public static string GetDayOfWeek()
+        public static string GetDayOfWeek(this DateTime dt)
         {
             return DateTime.Now.DayOfWeek.ToString();
         }
@@ -31,7 +31,7 @@ namespace CommonLibary
         /// 获得当月的天数
         /// </summary>
         /// <returns></returns>
-        public static int GetDaysOfThisMonth()
+        public static int GetDaysOfThisMonth(this DateTime dt)
         {
             return DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
         }
@@ -40,7 +40,7 @@ namespace CommonLibary
         /// 判断今年是否是闰年
         /// </summary>
         /// <returns></returns>
-        public static bool GetDaysOfThisYear()
+        public static bool GetDaysOfThisYear(this DateTime dt)
         {
             return DateTime.IsLeapYear(DateTime.Now.Year);
         }
@@ -51,7 +51,7 @@ namespace CommonLibary
         /// <param name="d1"></param>
         /// <param name="d2"></param>
         /// <returns>返回结果：-1:d1< d2, 0:d1 = d2;1:d1 > d2</returns>
-        public static int CompareTwoDate(DateTime d1, DateTime d2)
+        public static int CompareTwoDate(this DateTime dt, DateTime d1, DateTime d2)
         {
             return d1.CompareTo(d2);
         }
@@ -60,7 +60,7 @@ namespace CommonLibary
         /// 昨天
         /// </summary>
         /// <returns></returns>
-        public static DateTime GetYesterday()
+        public static DateTime GetYesterday(this DateTime dt)
         {
             return DateTime.Today.AddDays(-1);
         }
@@ -69,7 +69,7 @@ namespace CommonLibary
         /// 明天
         /// </summary>
         /// <returns></returns>
-        public static DateTime GetTomorrow()
+        public static DateTime GetTomorrow(this DateTime dt)
         {
             return DateTime.Today.AddDays(1);
         }
@@ -79,7 +79,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
-        public static DateTime GetFirstDayOfYear(DateTime d1)
+        public static DateTime GetFirstDayOfYear(this DateTime dt, DateTime d1)
         {
             return new DateTime(d1.Year, 1, 1);
         }
@@ -89,7 +89,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="d1"></param>
         /// <returns></returns>
-        public static DateTime GetLastDayOfYear(DateTime d1)
+        public static DateTime GetLastDayOfYear(this DateTime dt, DateTime d1)
         {
             DateTime d2 = new DateTime(d1.Year + 1, 1, 1);
             return d2.AddDays(-1);
@@ -99,7 +99,7 @@ namespace CommonLibary
         /// DateTime转成时间戳
         /// </summary>
         /// <returns></returns>
-        public static long GetTimeStamp()
+        public static long GetTimeStamp(this DateTime dt)
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds);
@@ -110,9 +110,9 @@ namespace CommonLibary
         /// </summary>
         /// <param name="dt">要转成时间戳类型的时间</param>
         /// <returns></returns>
-        public static long GetTimeStamp(DateTime dt)
+        public static long GetTimeStamp(this DateTime dt, DateTime date)
         {
-            TimeSpan ts = dt - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan ts = date - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds);
         }
 

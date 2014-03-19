@@ -16,7 +16,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="t">枚举类的类型</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetAllEnumName(Type t)
+        public static IEnumerable<string> GetAllEnumName(this Enum e, Type t)
         {
             IList<string> enumlist = new List<string>();
             foreach (var s in Enum.GetNames(t))
@@ -32,7 +32,7 @@ namespace CommonLibary
         /// <param name="enumtype">枚举类型</param>
         /// <param name="value">字符串值</param>
         /// <returns></returns>
-        public static object StringToEnum(Type enumtype, string value)
+        public static object StringToEnum(this Enum e, Type enumtype, string value)
         {
             return Enum.Parse(enumtype, value);
         }
@@ -42,7 +42,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="t">枚举类型</param>
         /// <returns></returns>
-        public static IEnumerable<int> GetAllEnumValue(Type t)
+        public static IEnumerable<int> GetAllEnumValue(this Enum e, Type t)
         {
             IList<int> enumlist = new List<int>();
             foreach (int i in Enum.GetValues(t))
@@ -92,7 +92,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="enumType">具体的枚举类型</param>
         /// <returns></returns>
-        public static DataTable EnumToDataTable(Type enumType)
+        public static DataTable EnumToDataTable(this Enum e, Type enumType)
         {
             var dt = new DataTable();
             dt.Columns.Add("decription", typeof(string));

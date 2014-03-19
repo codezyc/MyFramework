@@ -75,7 +75,6 @@ namespace CommonLibary
             }
         }
 
-
         /// <summary>
         /// 将集合中所有的字符串变成大写字符
         /// </summary>
