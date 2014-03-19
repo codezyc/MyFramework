@@ -172,6 +172,7 @@
     <Compile Include="CustomeAttribute\AuthenticationChallengeContextExtensions.cs" />
     <Compile Include="CustomeAttribute\BasicAuthenticationAttribute.cs" />
     <Compile Include="CustomeAttribute\HttpsAttribute.cs" />
+    <Compile Include="CustomeAttribute\LayoutAttribute.cs" />
     <Compile Include="CustomeController\CommonController.cs" />
     <Compile Include="CustomeOutputProvider\DocumentDatabaseOutputCacheProvider.cs" />
     <Compile Include="CustomeViewEngine\MyCustomView.cs" />
