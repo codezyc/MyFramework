@@ -17,7 +17,7 @@ namespace CommonLibary
         /// <param name="s"></param>
         /// <param name="chars"></param>
         /// <returns></returns>
-        public static string[] SplitByMutipleChar(this string str, string s, char[] chars)
+        public static string[] SplitByMutipleChar(this string s, char[] chars)
         {
             return s.Split(chars, StringSplitOptions.RemoveEmptyEntries);
         }
@@ -27,7 +27,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns></returns>
-        public static char[] GetCharArray(this string s, string str)
+        public static char[] GetCharArray(this string str)
         {
             if (string.IsNullOrEmpty(str))
             {
@@ -41,7 +41,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns></returns>
-        public static string ReverseString(this string s, string str)
+        public static string ReverseString(this string str)
         {
             if (!string.IsNullOrEmpty(str))
             {
@@ -69,7 +69,7 @@ namespace CommonLibary
         /// <param name="str">字符串</param>
         /// <param name="specialchar">特殊字符</param>
         /// <returns></returns>
-        public static string RemoveSpecialChar(this string s, string str, string specialchar)
+        public static string RemoveSpecialChar(this string str, string specialchar)
         {
             if (!string.IsNullOrEmpty(str))
             {
@@ -104,7 +104,7 @@ namespace CommonLibary
         /// <param name="str">被匹配的字符串</param>
         /// <param name="startat">开始匹配的位置</param>
         /// <returns></returns>
-        public static int GetMatchCount(this string s, Regex reg, string str, int startat)
+        public static int GetMatchCount(this string str, Regex reg, int startat)
         {
             MatchCollection mc = reg.Matches(str, startat);
             return mc.Count;
@@ -134,7 +134,7 @@ namespace CommonLibary
         /// <param name="str">字符串</param>
         /// <param name="position">位置</param>
         /// <returns></returns>
-        public static string GetLeftString(this string s, string str, int position)
+        public static string GetLeftString(this string str, int position)
         {
             if (position <= 0)
                 return string.Empty;
@@ -152,7 +152,7 @@ namespace CommonLibary
         /// <param name="str">字符串</param>
         /// <param name="position">位置</param>
         /// <returns></returns>
-        public static string GetRightString(this string s, string str, int position)
+        public static string GetRightString(this string str, int position)
         {
             if (position <= 0)
                 return string.Empty;
@@ -169,7 +169,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">半角字符串</param>
         /// <returns>全角字符串</returns>
-        public static string ToSBC(this string s, string str)
+        public static string ToSBC(this string str)
         {
             char[] chars = str.ToCharArray();
             for (int i = 0; i < chars.Length; i++)
@@ -192,7 +192,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">全角字符串</param>
         /// <returns>半角字符串</returns>
-        public static string ToDBC(this string s, string str)
+        public static string ToDBC(this string str)
         {
             char[] chars = str.ToCharArray();
             for (int i = 0; i < chars.Length; i++)
@@ -213,7 +213,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns>繁体中文字符串</returns>
-        public static string ToTraditionalChinese(this string s, string str)
+        public static string ToTraditionalChinese(this string str)
         {
             return Strings.StrConv(str, VbStrConv.TraditionalChinese);
         }
@@ -223,7 +223,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串</param>
         /// <returns>简体中文字符串</returns>
-        public static string ToSimplifiedChinese(string str)
+        public static string ToSimplifiedChinese(this string str)
         {
             return Strings.StrConv(str, VbStrConv.SimplifiedChinese);
         }
@@ -235,7 +235,7 @@ namespace CommonLibary
         /// <param name="s2">字符串变量</param>
         /// <param name="IsIgnoreCase">是否忽略大小写</param>
         /// <returns></returns>
-        public static int CompareString(this string s, string s1, string s2, bool IsIgnoreCase)
+        public static int CompareString(this string s1, string s2, bool IsIgnoreCase)
         {
             if (string.IsNullOrEmpty(s1) && string.IsNullOrEmpty(s2))
             {
@@ -254,7 +254,7 @@ namespace CommonLibary
         /// </summary>
         /// <param name="str">字符串变量</param>
         /// <returns>Guid</returns>
-        public static Guid StringToGuid(this string s, string str)
+        public static Guid StringToGuid(this string str)
         {
             if (string.IsNullOrEmpty(str))
                 return Guid.Empty;

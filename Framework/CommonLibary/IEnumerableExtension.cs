@@ -137,5 +137,39 @@ namespace CommonLibary
         {
             return list.Where(filterParam);
         }
+
+        /// <summary>
+        /// 删除字典中满足条件的键
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="condition"></param>
+        public static void RemoveKeysByCondition<TKey, TValue>(this Dictionary<TKey, TValue> dict,
+            Func<KeyValuePair<TKey, TValue>, bool> condition)
+        {
+            foreach (var cur in dict.Where(condition).ToList())
+            {
+                dict.Remove(cur.Key);
+            }
+        }
+
+        /// <summary>
+        /// 向字典中加入数据，如果数据存在，则不重复添加
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dict"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, TValue> TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
+        {
+            if (!dict.ContainsKey(key))
+            {
+                dict.Add(key, value);
+            }
+            return dict;
+        }
     }
 }
