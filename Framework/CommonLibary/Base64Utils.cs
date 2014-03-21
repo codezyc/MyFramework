@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 
 namespace CommonLibary
 {
     /// <summary>
-    /// C# Base64操作
+    /// C# Base64编码解码操作
     /// </summary>
     public static class Base64Utils
     {
