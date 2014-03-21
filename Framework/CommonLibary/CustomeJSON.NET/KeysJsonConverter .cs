@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,3 +67,73 @@ namespace CommonLibary.CustomeJSON.NET
         }
     }
 }
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace CommonLibary.CustomeJSON.NET
+{
+    /// <summary>
+    /// 自定义Json转换器
+    /// </summary>
+    public class KeysJsonConverter : JsonConverter
+    {
+        private readonly Type[] _types;
+
+        private string Keys;
+
+        public KeysJsonConverter(params Type[] types)
+        {
+            _types = types;
+        }
+
+        /// <summary>
+        /// 重写WriteJson方法
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="value"></param>
+        /// <param name="serializer"></param>
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            JToken t = JToken.FromObject(value);
+
+            if (t.Type != JTokenType.Object)
+            {
+                t.WriteTo(writer);
+            }
+            else
+            {
+                JObject o = (JObject)t;
+                IList<string> propertyNames = o.Properties().Select(p => p.Name).ToList();
+
+                o.AddFirst(new JProperty(Keys, new JArray(propertyNames)));
+
+                o.WriteTo(writer);
+            }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            throw new NotImplementedException("Unnecessary because CanRead is false. The type will skip the converter.");
+        }
+
+        /// <summary>
+        /// 返回false
+        /// </summary>
+        public override bool CanRead
+        {
+            get { return false; }
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return _types.Any(t => t == objectType);
+        }
+    }
+}
+>>>>>>> 7d87b27e8fbfdc20ac3aab1a5d488a6088fb9fda
