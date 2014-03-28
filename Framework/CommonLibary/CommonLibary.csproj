@@ -86,6 +86,8 @@
     <Compile Include="DateUtils.cs" />
     <Compile Include="EnumUtils.cs" />
     <Compile Include="EnvironmentUtils.cs" />
+    <Compile Include="ExpressionExt\ExpressionUtility.cs" />
+    <Compile Include="ExpressionExt\ParameterRebinder.cs" />
     <Compile Include="IEnumerableExtension.cs" />
     <Compile Include="IOUtils.cs" />
     <Compile Include="JSONUtils.cs" />
