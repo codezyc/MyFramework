@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="CustomeAttribute\CheckModelForNullAttribute.cs" />
     <Compile Include="CustomeAttribute\ElmahErrorAttribute.cs" />
     <Content Include="Global.asax" />
@@ -96,6 +97,8 @@
     <Compile Include="CustomeAttribute\CorsAttribute.cs" />
     <Compile Include="CustomeAttribute\CustomControllerConfigAttribute.cs" />
     <Compile Include="CustomeHandler\GlobalExceptionHandler.cs" />
+    <Compile Include="CustomeHandler\SessionControllerHandler.cs" />
+    <Compile Include="CustomeHandler\SessionRouteHandler.cs" />
     <Compile Include="CustomeHandler\TraceSourceExceptionLogger.cs" />
     <Compile Include="CustomeHttpMessageHandler\CorsMessageHandler.cs" />
     <Compile Include="CustomeHttpMessageHandler\CustomCertificateMessageHandler.cs" />
@@ -132,7 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
