@@ -128,5 +128,31 @@ namespace CommonLibary
             time = startTime.AddSeconds(timestamp);
             return time;
         }
+
+        /// <summary>
+        /// 获取当年的生肖
+        /// </summary>
+        /// <returns>当年的生肖</returns>
+        public static string GetCurrentYearZodiac()
+        {
+            System.Globalization.ChineseLunisolarCalendar chinseCaleander = new System.Globalization.ChineseLunisolarCalendar();
+            string Zodiac = "鼠牛虎兔龙蛇马羊猴鸡狗猪";    //创建字符串对象
+            int year = chinseCaleander.GetSexagenaryYear(DateTime.Now);     //计算年信息,GetSexagenaryYear计算与指定日期对应的甲子（60 年）循环中的年。
+            string currentYearZodiac = Zodiac.Substring(chinseCaleander.GetTerrestrialBranch(year) - 1, 1);    //GetTerrestrialBranch计算甲子（60 年）循环中指定年份的地支,
+            return currentYearZodiac;
+        }
+
+        /// <summary>
+        /// 判断当年是否是闰年
+        /// </summary>
+        /// <returns>true or false</returns>
+        public static bool IsLeapYear()
+        {
+            if (DateTime.IsLeapYear(Convert.ToInt32(DateTime.Now.ToString("YYYY"))))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
