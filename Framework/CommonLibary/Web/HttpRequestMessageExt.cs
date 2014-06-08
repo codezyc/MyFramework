@@ -12,6 +12,13 @@ namespace CommonLibary.Web
     /// </summary>
     public static class HttpRequestMessageExt
     {
+        #region 属性 变量
+
+        private const string HttpContext = "MS_HttpContext";
+        private const string RemoteEndpointMessage = "System.ServiceModel.Channels.RemoteEndpointMessageProperty";
+        
+        #endregion
+
         /// <summary>
         /// 从Http请求头信息中获取用户名和密码
         /// </summary>
@@ -70,6 +77,32 @@ namespace CommonLibary.Web
                 }
             }
             return dic;
+        }
+
+        /// <summary>
+        /// 获取客户端IP地址
+        /// </summary>
+        /// <param name="requestmessage"></param>
+        /// <returns></returns>
+        public static string GetClientIpAddress(this HttpRequestMessage requestmessage)
+        {
+            if (requestmessage.Properties.ContainsKey(HttpContext))
+            {
+                dynamic ctx = requestmessage.Properties[HttpContext];
+                if (ctx != null)
+                {
+                    return ctx.Request.UserHostAddress;
+                }
+            }
+            if (requestmessage.Properties.ContainsKey(RemoteEndpointMessage))
+            {
+                dynamic remoteEndpoint = requestmessage.Properties[RemoteEndpointMessage];
+                if (remoteEndpoint != null)
+                {
+                    return remoteEndpoint.Address;
+                }
+            }
+            return null;
         }
     }
 }
